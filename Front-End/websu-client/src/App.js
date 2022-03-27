@@ -16,13 +16,16 @@ import {
 } from "./components";
 
 
-function App() {
-  return (
-    <Router>
-      <Routes>
-        <route
-      </Routes>
-    </Router>
-}
+ReactDOM.render(
+  <Router>
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="/" element={<Game />} />
+      <Route path="/" element={<Profile />} />
+    </Routes>
+  </Router>,
+
+  document.getElementById("root")
+);
 
 export default App;
