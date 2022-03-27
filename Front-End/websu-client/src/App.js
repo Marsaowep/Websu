@@ -1,31 +1,29 @@
 import React from "react";
-import ReactDOM from "react-DOM";
+import ReactDOM from "react-dom";
 import logo from "./logo.svg";
 import "./App.css";
-import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import {
-  Game,
-  GlobalLeaderboards,
-  JoinLobby,
-  LobbyMenu,
-  Login,
-  MainMenu,
-  MatchLeaderboards,
-  Profile,
-} from "./components";
 
-
-ReactDOM.render(
-  <Router>
-    <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/" element={<Game />} />
-      <Route path="/" element={<Profile />} />
-    </Routes>
-  </Router>,
-
-  document.getElementById("root")
-);
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+          asdfjasdfjhikasdfjhklasdfjhklasdfjhklasdfjhasdfjasdfljasdfjhasdfjh
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  );
+}
 
 export default App;
