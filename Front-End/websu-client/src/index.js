@@ -13,9 +13,9 @@ import {
 ReactDOM.render(
   <Router>
     <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/" element={<Game />} />
-      <Route path="/" element={<Profile />} />
+      <Route exact path="/" element={<Login />} />
+      <Route path="/Game" element={<Game />} />
+      <Route path="/Profile" element={<Profile />} />
     </Routes>
   </Router>,
 

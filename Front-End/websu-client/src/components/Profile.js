@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Profile() {
     return (
@@ -6,6 +7,7 @@ function Profile() {
           <div class="container">
               <div class="row align-items-center">
                   <div class="col-sm-4">
+                    <Link to="/Game">Back</Link>
                     <h1>Profile Customization</h1>
                     <br></br>
                     <form>
