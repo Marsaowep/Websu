@@ -1,9 +1,9 @@
 import React from "react";
 
-function Login(){
+function GlobalLeaderboards(){
     return(
         <div/>
     );
 }
 
-export default Login;
+export default GlobalLeaderboards;
