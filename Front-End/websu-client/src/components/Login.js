@@ -11,6 +11,7 @@ function Login() {
         <label for="password">Password:</label>
         <input type="text" id="password" name="password"></input>
       </form>
+      <Link to="/Game">Game</Link><br></br>
       <Link to="/Profile">Profile</Link>
     </div>
   );

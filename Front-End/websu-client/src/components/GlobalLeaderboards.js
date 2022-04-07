@@ -2,7 +2,10 @@ import React from "react";
 
 function GlobalLeaderboards(){
     return(
-        <div/>
+        <div>
+            <h3>Global Leaderboard</h3>
+            <ul class="gLeader"></ul>
+        </div>
     );
 }
 

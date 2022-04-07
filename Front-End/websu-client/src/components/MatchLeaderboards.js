@@ -2,7 +2,10 @@ import React from "react";
 
 function MatchLeaderboards(){
     return(
-        <div/>
+        <div>
+            <h3>Match Leaderboard</h3>
+            <ul class="mLeader"></ul>
+        </div>
     );
 }
 
