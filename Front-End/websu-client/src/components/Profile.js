@@ -1,12 +1,14 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react'
+import { Link } from "react-router-dom"
 
-function Profile() {
+export default class Profile extends Component {
+    state = { win:'0',tie:'0',accuracy:'0',top1:'10',top2:'5',top3:'3'};
+    render(){
     return (
-      <div classname="profile">
-          <div class="container">
-              <div class="row align-items-center">
-                  <div class="col-sm-4">
+      <div className="profile">
+          <div className="container">
+              <div className="row align-items-center">
+                  <div className="col-sm-4">
                     <Link to="/Game">Back</Link>
                     <h1>Profile Customization</h1>
                     <br></br>
@@ -30,17 +32,17 @@ function Profile() {
                         <input type="submit" value="Submit" />
                     </form>
                   </div>
-                  <div class='col-sm-7'>
+                  <div className='col-sm-7'>
                       <h3>Player Stats</h3>
-                      <h3>Number of Wins: 10</h3><br></br>
-                      <h3>Number of Ties: 2 </h3><br></br>
-                      <h3>Average Accuracy: 89%</h3><br></br>
+                      <h3>Number of Wins: {this.state.win}</h3><br></br>
+                      <h3>Number of Ties: {this.state.tie} </h3><br></br>
+                      <h3>Average Accuracy: {this.state.accuracy}%</h3><br></br>
                       <div>
                           <h4>Top 3 Scores: </h4>
                           <ul>
-                              <li>1</li>
-                              <li>2</li>
-                              <li>3</li>
+                              <li>{this.state.top1}</li>
+                              <li>{this.state.top2}</li>
+                              <li>{this.state.top3}</li>
                           </ul>
                       </div>
                   </div>
@@ -49,5 +51,5 @@ function Profile() {
       </div>
     );
 }
+}
 
-export default Profile;

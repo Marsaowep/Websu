@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function Login() {
   return (
-    <div class="login_container">
+    <div className="login_container">
       Form
       <form>
         <label for="user_name">User Name:</label>

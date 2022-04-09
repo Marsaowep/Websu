@@ -9,7 +9,7 @@ import {
   Profile,
 } from "./components";
 import socketClient from "socket.io-client";
-const SERVER = "localhost:4000";
+const SERVER = "localhost:3001";
 
 function App() {
   var socket = socketClient(SERVER);
