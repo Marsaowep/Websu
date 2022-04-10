@@ -1,13 +1,17 @@
 import React, { Component } from "react";
 import MainMenu from "./MainMenu";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Leaderboards from "./Leaderboards";
 import Target from "./Target";
 
-export default class Game extends Component{
-  state = {matchLeaders:[{rank:"1", name:"Peter", score:"20"},
-  {rank:"2", name:"Bob", score:"17"},
-  {rank:"3", name:"Julia", score:"10"}]}
+export default class Game extends Component {
+  state = {
+    matchLeaders: [
+      { rank: "1", name: "Peter", score: "20" },
+      { rank: "2", name: "Bob", score: "17" },
+      { rank: "3", name: "Julia", score: "10" },
+    ],
+  };
 
   handleClick=(event)=>{
     const{target} =event
@@ -109,6 +113,7 @@ export default class Game extends Component{
               </div>
           </div>
         </div>
+      </div>
     );
-}
+  }
 }
