@@ -15,9 +15,9 @@ export default class App extends Component {
   
   state = {
     profile:{name:"Pos",win:"10",tie:"10",accuracy:"90",top1:"17",top2:"15",top3:"10"},
-    globalLeaders: [ {rank:"1", name:"Peter", Score:"20"},
-                            {rank:"2", name:"Bob", Score:"17"},
-                            {rank:"3", name:"Julia", Score:"10"}]}
+    globalLeaders: [ {rank:"1", name:"Pos", score:"20"},
+                            {rank:"2", name:"Pop", score:"17"},
+                            {rank:"3", name:"Lisa", score:"10"}]}
 
   render(){
   return (

@@ -3,10 +3,10 @@ import Item from "./Item"
 
 export default class Leaderboards extends Component{
     render(){
-        const {leaders} = this.props
+        const {type,leaders} = this.props
     return(
         <div>
-            <h3>Match Leaderboard</h3>
+            <h3>{type} Leaderboard</h3>
             <ul>
                 {
                     leaders.map( leader =>{
