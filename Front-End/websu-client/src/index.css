@@ -9,7 +9,24 @@ body {
   color:white;
 }
 
+.play-row{
+  clear:both;
+  display:table
+}
+
+.button{
+  background-color: azure;
+  float:left;
+  font-size: 20px;
+  line-height: 30px;
+  height: 30px;
+  text-align: center;
+  width:30px;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
