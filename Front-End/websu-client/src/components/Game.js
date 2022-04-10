@@ -20,17 +20,17 @@ export default class Game extends Component{
                   <div className="col-sm-4">
                     <Leaderboards type="Global" leaders={globalLeaders}/>
                     <Leaderboards type="Match" leaders={this.state.matchLeaders}/>
-                    <h1>Game</h1>
                   </div>
                   <div className="col-sm-4">
                     <MainMenu/>
                   </div>
-                  <div className="col-sm-4">
-                      <Link to="/Profile">Profile</Link>
-                  </div>
-
-        </div>
-        </div>
+              </div>
+              <div className="row bg-warning">
+                <h1>Game</h1>
+                <h1>Game screen
+                </h1>
+              </div>
+          </div>
         </div>
     );
 }
