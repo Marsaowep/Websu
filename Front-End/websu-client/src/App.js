@@ -1,31 +1,33 @@
-import React from "react";
-import ReactDOM from "react-DOM";
+import React from 'react';
+import ReactDOM from "react-dom";
 import logo from "./logo.svg";
 import "./App.css";
-import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import {
   Game,
-  GlobalLeaderboards,
-  JoinLobby,
-  LobbyMenu,
   Login,
-  MainMenu,
-  MatchLeaderboards,
   Profile,
 } from "./components";
+import socketClient from "socket.io-client";
+const SERVER = "localhost:3001";
+
+function App() {
+  var socket = socketClient(SERVER);
+  
 
 
-ReactDOM.render(
-  <Router>
+  return (
+    <div>
+    <Router>
     <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/" element={<Game />} />
-      <Route path="/" element={<Profile />} />
+      <Route exact path="/" element={<Login />} />
+      <Route path="/Game" element={<Game />} />
+      <Route path="/Profile" element={<Profile />} />
     </Routes>
-  </Router>,
+  </Router>
 
-  document.getElementById("root")
-);
+    </div>
+  );
+}
 
 export default App;
