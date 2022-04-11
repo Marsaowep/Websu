@@ -23,15 +23,35 @@ const uri = process.env.ATLAS_URI; //read in secret mongo url from .env
 
 const PORT = process.env.PORT || 3001;
 
+//Listening for the login post request from login form
+app.post("/login", async function (req, res) {
+  console.log(req.body);
+  console.log(req.body.username);
+  console.log(req.body.password);
+  var user = await getUser(req.body.username, req.body.password);
+  console.log("user is...: ", user);
+  res.send({
+    response: user,
+  });
+});
+
+//Listening for the register post request from login form
 app.post("/register", async function (req, res) {
   console.log(req.body);
   console.log(req.body.username);
   console.log(req.body.password);
   var reg = await registerUser(req.body.username, req.body.password);
-  console.log("Reg is...: ", reg);
-  res.send({
-    response: reg,
-  });
+  if (reg) {
+    var user = await getUser(req.body.username, req.body.password);
+    res.send({
+      response: user,
+    });
+  } else {
+    console.log("Reg is...: ", reg);
+    res.send({
+      response: reg,
+    });
+  }
 });
 
 server.listen(PORT, () => {
@@ -167,10 +187,11 @@ async function getUser(username, password) {
 
   // Check if user actually exists
   if (user) {
-    if (user.password == password) {
+    if (user.password === password) {
       return user;
     } else {
-      return "Incorrect Password."; // Place holder for now, replace with better logic later
+      console.log("incorrect password");
+      return null; // Place holder for now, replace with better logic later
     }
   }
 }
