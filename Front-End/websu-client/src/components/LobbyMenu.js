@@ -35,12 +35,18 @@ function LobbyMenu(){
 
     socket.on('lobbyId', (data)=>{
         setLobbyId(data.lobbyId);
-        setPlayers(data.players);
+        setPlayers(data.usernames);
+        setLobbyHost(data.lobbyHost);
     });
 
     socket.on('lobbyName', (data) =>{
         setRoomExists(data.roomExists);
-        setPlayers(data.players);
+        setPlayers(data.usernames);
+        setLobbyHost(data.lobbyHost);
+    });
+
+    socket.on('updateScores', (data) =>{
+        setPlayers(data.usernames)
     });
 
     return(

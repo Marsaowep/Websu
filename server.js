@@ -10,7 +10,9 @@ const bodyParser = require("body-parser");
 var userCount = 0;
 var connectedClients = {};
 
+
 const rooms = {};
+
 
 const { MongoClient } = require("mongodb");
 app.use(cors());
@@ -55,16 +57,21 @@ io.on("connection", (socket) => {
     socket.roomId = generateId();
 
     socket.join(socket.roomId);
+    var player = {
+      username: data.username,
+      score: 0
+    };
 
-    if(!rooms[socket.roomId]) 
+    if(!rooms[socket.roomId])
       rooms[socket.roomId] = {};
     rooms[socket.roomId].host = data.username;
-    rooms[socket.roomId].players.push(data.username);
+    rooms[socket.roomId].players.push(player);
 
     socket.to(socket.roomId).emit('lobbyId', {
       lobbyId: lobbyId,
-      players: rooms[socket.roomId].players
-    })
+      players: rooms[socket.roomId].players,
+      theHost: rooms[socket.roomId].host
+    });
 
     console.log('game created! ID: ', socket.roomId);
   });
@@ -72,12 +79,18 @@ io.on("connection", (socket) => {
   socket.on('joinLobby', (data) => {
     if(!rooms[data.room]){
       socket.join(data.room);
-      rooms[data.room].players.push(data.username);
+      var player = {
+        username: data.username,
+        score: 0
+      };
+
+      rooms[data.room].players.push(player);
       socket.to(data.room).emit('lobbyName', {
         usernames: rooms[data.room].players,
         lobbyHost: rooms[data.room].host,
         roomExists: true
       });
+
     }
     else{
       socket.to(data.room).emit('lobbyName', {
@@ -85,8 +98,20 @@ io.on("connection", (socket) => {
         lobbyHost: rooms[data.room].host,
         roomExists: false
       });
+
       console.log("room doesnt exist");
     }
+  });
+
+  socket.on('matchScores', (data) =>{
+    let obj = rooms[data.room].players.find((o, i) => {
+      if (o.username === data.username){
+        rooms[data.room].players[i].score = data.score;
+      }
+    });
+    socket.to(data.room).emit('updateScores', {
+      usernames: rooms[data.room].players,
+    });
   });
 
   io.emit("sendMessage", "SUCCESSFULLY CONNECTED");

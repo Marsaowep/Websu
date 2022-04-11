@@ -5,33 +5,34 @@ import Game from "./Game"
 
 
 
-function MainMenu(){
-    let navigate = useNavigate();
+export default class MainMenu extends React.component{
+    
 
-    return(
 
-        <div className="main_menu_container">
-            <h1>this rocks</h1>
-            <div className="menu_buttons">
-                <button type='button' onClick={navigate("/Game")}>Singeplayer</button>
-                <button type='button' onClick={navigate("/lobbyMenu")}>Multiplayer</button>
+    render(){
+        return(
+
+            <div className="main_menu_container">
+                <h1>this rocks</h1>
+                <div className="menu_buttons">
+                    <button type='button' onClick={Navigate("/Game")}>Singeplayer</button>
+                    <button type='button' onClick={Navigate("/LobbyMenu")}>Multiplayer</button>
+                </div>
+
+                <div className="main_menu_routes">
+                    <Router>
+                        <Routes>
+                            <Route exact path="/" element={<MainMenu />} />
+                            <Route
+                                path="/Game"
+                                element={<Game globalLeaders={this.state.globalLeaders} />}
+                            />
+                            <Route
+                                path="/lobbyMenu"element={<LobbyMenu/>}/>
+                        </Routes>
+                    </Router>
+                </div>
             </div>
-
-            <div className="main_menu_routes">
-                <Router>
-                    <Routes>
-                        <Route exact path="/" element={<MainMenu />} />
-                        <Route
-                            path="/Game"
-                            element={<Game globalLeaders={this.state.globalLeaders} />}
-                        />
-                        <Route
-                            path="/lobbyMenu"element={<LobbyMenu/>}/>
-                    </Routes>
-                </Router>
-            </div>
-        </div>
-    );
+        );
+    }
 }
-
-export default MainMenu;
