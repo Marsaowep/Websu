@@ -71,21 +71,22 @@ export default class Game extends Component {
   };
 
 
-  click=(color)=>{
-    this.state.color=color
+  click=(c)=>{
+    this.setState({color:c})
     console.log("Game know u clicked"+this.state.color)
   }
 
   setTarget=(event)=>{
     const min = 0;
     const max = 4;
-    const rand1 = min + Math.random() * (max - min);
-    const rand2 = min + Math.random() * (max - min);
-    const newTarget=this.state.targets.map(target=>{
-      if(target.xid==={rand1} && target.xid==={rand2}) return {...target,target:true}
-      else return target
+    const rand1 = parseInt(min + Math.random() * (max - min));
+    const rand2 = parseInt(min + Math.random() * (max - min));
+    console.log("set"+rand1+rand2)
+    const newTargets=this.state.targets.map(target=>{
+      if(target.xid===rand1 && target.yid===rand2) return {xid:target.xid, yid:target.yid,target:true}
+      else return {xid:target.xid, yid:target.yid,target:false}
     })
-    this.setState({targets:newTarget})
+    this.setState({targets:newTargets})
   }
 
   render() {
