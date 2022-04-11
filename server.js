@@ -7,6 +7,13 @@ const io = new Server(server);
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
+var userCount = 0;
+var connectedClients = {};
+
+const rooms = {
+
+};
+
 const { MongoClient } = require("mongodb");
 app.use(cors());
 app.use(bodyParser.json());
@@ -31,8 +38,59 @@ server.listen(PORT, () => {
   console.log("listening on *:" + PORT);
 });
 
+function generateId(){
+  var length = 6;
+  var result           = '';
+  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for ( var i = 0; i < length; i++ ) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
 io.on("connection", (socket) => {
   console.log("a user connected");
+
+  socket.on('createLobby', (data) => {
+
+    socket.roomId = generateId();
+
+    socket.join(socket.roomId);
+
+    if(!rooms[socket.roomId]) 
+      rooms[socket.roomId] = {};
+    rooms[socket.roomId].host = data.username;
+    rooms[socket.roomId].players.push(data.username);
+
+    socket.to(socket.roomId).emit('lobbyId', {
+      lobbyId: lobbyId,
+      players: rooms[socket.roomId].players
+    })
+
+    console.log('game created! ID: ', socket.roomId);
+  });
+
+  socket.on('joinLobby', (data) => {
+    if(!rooms[data.room]){
+      socket.join(data.room);
+      rooms[data.room].players.push(data.username);
+      socket.to(data.room).emit('lobbyName', {
+        usernames: rooms[data.room].players,
+        lobbyHost: rooms[data.room].host,
+        roomExists: true
+      });
+    }
+    else{
+      socket.to(data.room).emit('lobbyName', {
+        usernames: rooms[data.room].players,
+        lobbyHost: rooms[data.room].host,
+        roomExists: false
+      });
+      console.log("room doesnt exist");
+    }
+  });
+
   io.emit("sendMessage", "SUCCESSFULLY CONNECTED");
   socket.on("disconnect", () => {
     console.log("user disconnected");

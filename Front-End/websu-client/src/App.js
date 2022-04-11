@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { Game, Login, Profile } from "./components";
+import { Game, Login, MainMenu, Profile } from "./components";
 import socketClient from "socket.io-client";
 const SERVER = "localhost:3000";
+
+export const socket = socketClient(SERVER);
 
 export default class App extends Component {
   socket = socketClient(SERVER);
@@ -42,8 +44,7 @@ export default class App extends Component {
             <Routes>
               <Route exact path="/" element={<Login />} />
               <Route
-                path="/game"
-                element={<Game globalLeaders={this.state.globalLeaders} />}
+                path="/MainMenu" element={<MainMenu/>}
               />
               <Route
                 path="/profile"

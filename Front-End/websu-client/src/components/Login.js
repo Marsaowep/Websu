@@ -39,7 +39,7 @@ function Login() {
     console.log("response:", response);
     console.log(response.response);
     if (response.response) {
-      navigate("/game", {});
+      navigate("/MainMenu", {});
     } else {
       window.alert("User Already Exists!");
     }
@@ -87,7 +87,7 @@ function Login() {
         <button onClick={handleSubmitLogin}>Login</button>
         <input type="submit" value="Register"></input>
       </form>
-      <Link to="/Game">Game</Link>
+      <Link to="/MainMenu">MainMenu</Link>
       <br></br>
       <Link to="/Profile">Profile</Link>
     </div>
