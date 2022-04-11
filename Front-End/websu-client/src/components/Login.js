@@ -1,7 +1,7 @@
 import React, { Component, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-async function loginUser(credentials) {
+async function registerUser(credentials) {
   return fetch("http://localhost:3000/register", {
     method: "POST",
     headers: {
@@ -11,7 +11,7 @@ async function loginUser(credentials) {
   }).then((data) => data.json());
 }
 
-async function registerUser(credentials) {
+async function loginUser(credentials) {
   return fetch("http://localhost:3000/login", {
     method: "POST",
     headers: {
@@ -31,15 +31,17 @@ function Login() {
     console.log(password);
     e.preventDefault();
     console.log("E IS THIS: ", e);
-    const response = await loginUser({
+    const response = await registerUser({
       username,
       password,
     });
 
     console.log("response:", response);
     console.log(response.response);
+
     if (response.response) {
-      navigate("/game", {});
+      console.log("Register Successful!");
+      navigate("/MainMenu", { response });
     } else {
       window.alert("User Already Exists!");
     }
@@ -49,7 +51,19 @@ function Login() {
     console.log(username);
     console.log(password);
     e.preventDefault();
-    window.alert("Logging in!");
+
+    const response = await loginUser({
+      username,
+      password,
+    });
+
+    console.log("login response: ", response);
+    console.log(response.response);
+    if (response.response) {
+      navigate("/MainMenu", { response });
+    } else {
+      window.alert("Incorrect Credentials");
+    }
 
     // console.log("E IS THIS: ", e);
     // const response = await loginUser({
