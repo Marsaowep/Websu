@@ -11,17 +11,80 @@ export default class Game extends Component {
       { rank: "2", name: "Bob", score: "17" },
       { rank: "3", name: "Julia", score: "10" },
     ],
+    targets: [{xid:0,yid:0,target:false},
+      {xid:0,yid:1,target:false},
+      {xid:0,yid:2,target:false},
+      {xid:0,yid:3,target:false},
+      {xid:0,yid:4,target:false},
+      {xid:0,yid:5,target:false},
+      {xid:0,yid:6,target:false},
+      {xid:0,yid:7,target:false},
+      {xid:0,yid:8,target:false},
+      {xid:0,yid:9,target:false},
+      {xid:0,yid:10,target:false},
+      {xid:1,yid:0,target:false},
+      {xid:1,yid:1,target:false},
+      {xid:1,yid:2,target:false},
+      {xid:1,yid:3,target:false},
+      {xid:1,yid:4,target:false},
+      {xid:1,yid:5,target:false},
+      {xid:1,yid:6,target:false},
+      {xid:1,yid:7,target:false},
+      {xid:1,yid:8,target:false},
+      {xid:1,yid:9,target:false},
+      {xid:1,yid:10,target:false},
+      {xid:2,yid:0,target:false},
+      {xid:2,yid:1,target:false},
+      {xid:2,yid:2,target:false},
+      {xid:2,yid:3,target:false},
+      {xid:2,yid:4,target:false},
+      {xid:2,yid:5,target:false},
+      {xid:2,yid:6,target:false},
+      {xid:2,yid:7,target:false},
+      {xid:2,yid:8,target:false},
+      {xid:2,yid:9,target:false},
+      {xid:2,yid:10,target:false},
+      {xid:3,yid:0,target:false},
+      {xid:3,yid:1,target:false},
+      {xid:3,yid:2,target:false},
+      {xid:3,yid:3,target:false},
+      {xid:3,yid:4,target:false},
+      {xid:3,yid:5,target:false},
+      {xid:3,yid:6,target:false},
+      {xid:3,yid:7,target:false},
+      {xid:3,yid:8,target:false},
+      {xid:3,yid:9,target:false},
+      {xid:3,yid:10,target:false},
+      {xid:4,yid:0,target:false},
+      {xid:4,yid:1,target:false},
+      {xid:4,yid:2,target:false},
+      {xid:4,yid:3,target:false},
+      {xid:4,yid:4,target:false},
+      {xid:4,yid:5,target:false},
+      {xid:4,yid:6,target:true},
+      {xid:4,yid:7,target:false},
+      {xid:4,yid:8,target:false},
+      {xid:4,yid:9,target:false},
+      {xid:4,yid:10,target:false}  
+    ],
+    color: "blue"
   };
 
-  handleClick = (event) => {
-    const { target } = event;
-    console.log(target.t);
-    alert("u clicked " + target.id);
-  };
+
+  setTarget=(event)=>{
+    const min = 0;
+    const max = 4;
+    const rand1 = min + Math.random() * (max - min);
+    const rand2 = min + Math.random() * (max - min);
+    const newTarget=this.state.targets.map(target=>{
+      if(target.xid==={rand1} && target.xid==={rand2}) return {...target,target:true}
+      else return target
+    })
+    this.setState({targets:newTarget})
+  }
 
   render() {
-    const { globalLeaders } = this.props;
-
+    const { globalLeaders } = this.props
     return (
       <div className="game">
         <div className="container">
@@ -38,75 +101,36 @@ export default class Game extends Component {
             <h1>Game</h1>
             <div>
               <div className="play-row align-items-center">
-                <Target id="01" target={true} />
-                <Target id="02" target={true} />
-                <Target id="03" target={true} />
-                <Target id="04" target={true} />
-                <Target id="05" target={true} />
-                <Target id="06" target={true} />
-                <Target id="07" target={true} />
-                <Target id="08" target={true} />
-                <Target id="09" target={true} />
-                <Target id="010" target={true} />
-                <Target id="011" target={true} />
-                <Target id="012" target={true} />
+              {
+                   this.state.targets.map( target =>{
+                   return target.xid === 0 ? <Target xid={target.xid} yid={target.yid} target={target.target} color={this.state.color}/> : null})
+                }
+              </div>
+              <div className="align-items-center">
+                {
+                   this.state.targets.map( target =>{
+                   return target.xid === 1 ? <Target xid={target.xid} yid={target.yid} target={target.target} color={this.state.color}/> : null})
+                }
               </div>
               <div className="play-row align-items-center">
-                <Target id="11" target={true} />
-                <Target id="12" target={true} />
-                <Target id="13" target={true} />
-                <Target id="14" target={true} />
-                <Target id="15" target={true} />
-                <Target id="16" target={true} />
-                <Target id="17" target={true} />
-                <Target id="18" target={true} />
-                <Target id="19" target={true} />
-                <Target id="110" target={true} />
-                <Target id="111" target={true} />
-                <Target id="112" target={true} />
+                {
+                   this.state.targets.map( target =>{
+                   return target.xid === 2 ? <Target xid={target.xid} yid={target.yid} target={target.target} color={this.state.color}/> : null})
+                }
               </div>
               <div className="play-row align-items-center">
-                <Target id="21" target={true} />
-                <Target id="22" target={true} />
-                <Target id="23" target={true} />
-                <Target id="24" target={true} />
-                <Target id="25" target={true} />
-                <Target id="26" target={true} />
-                <Target id="27" target={true} />
-                <Target id="28" target={true} />
-                <Target id="29" target={true} />
-                <Target id="210" target={true} />
-                <Target id="211" target={true} />
-                <Target id="212" target={true} />
+                {
+                   this.state.targets.map( target =>{
+                   return target.xid === 3 ? <Target xid={target.xid} yid={target.yid} target={target.target} color={this.state.color}/> : null})
+                }
               </div>
               <div className="play-row align-items-center">
-                <Target id="31" target={true} />
-                <Target id="32" target={true} />
-                <Target id="33" target={true} />
-                <Target id="34" target={true} />
-                <Target id="35" target={true} />
-                <Target id="36" target={true} />
-                <Target id="37" target={true} />
-                <Target id="38" target={true} />
-                <Target id="39" target={true} />
-                <Target id="310" target={true} />
-                <Target id="311" target={true} />
-                <Target id="312" target={true} />
+                {
+                   this.state.targets.map( target =>{
+                   return target.xid === 4 ? <Target xid={target.xid} yid={target.yid} target={target.target} color={this.state.color}/> : null})
+                }
               </div>
-              <div className="play-row align-items-center">
-                <Target id="41" target={true} />
-                <Target id="42" target={true} />
-                <Target id="43" target={true} />
-                <Target id="44" target={true} />
-                <Target id="45" target={true} />
-                <Target id="46" target={true} />
-                <Target id="47" target={true} />
-                <Target id="48" target={true} />
-                <Target id="49" target={true} />
-                <Target id="410" target={true} />
-                <Target id="411" target={true} />
-                <Target id="412" target={true} />
-              </div>
+              //<button className="button" onClick={this.setTarget}>Set Target</button>
             </div>
           </div>
         </div>

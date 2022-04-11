@@ -2,16 +2,20 @@ import React, { Component } from 'react'
 
 export default class Target extends Component {
     static defaultProps = {
-        id: "0",
         target: false
     }
+
     handleClick=(event)=>{
-        const{target} =event
-        alert("u clicked "+target.id)
+        const{target} = event
+        alert("u clicked "+target.style.backgroundColor)
+        this.props.color(target.style.backgroundColor)
     }
   render() {
+    console.log(this.props.target ? "red" : "white")
+    const {xid,yid,target} = this.props
     return (
-        <button className="button" id={this.props.id} target={this.props.target} onClick={this.handleClick}/>
+        <button className="button" style={{backgroundColor: target ? "red" : "white"}} onClick={this.handleClick}/>
+        
     )
   }
 }
