@@ -13,7 +13,6 @@ function MainMenu(){
         <div className="main_menu_container">
             <h1>this rocks</h1>
             <div className="menu_buttons">
-                <Link to="/LobbyMenu">LobbyMenu</Link>
                 <button type='button' onClick={navigate("/Game")}>Singeplayer</button>
                 <button type='button' onClick={navigate("/lobbyMenu")}>Multiplayer</button>
             </div>

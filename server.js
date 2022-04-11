@@ -10,9 +10,7 @@ const bodyParser = require("body-parser");
 var userCount = 0;
 var connectedClients = {};
 
-const rooms = {
-
-};
+const rooms = {};
 
 const { MongoClient } = require("mongodb");
 app.use(cors());
