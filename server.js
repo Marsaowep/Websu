@@ -11,7 +11,7 @@ var userCount = 0;
 var connectedClients = {};
 
 
-const rooms = {};
+var rooms = {};
 
 
 const { MongoClient } = require("mongodb");
@@ -55,7 +55,6 @@ io.on("connection", (socket) => {
   socket.on('createLobby', (data) => {
 
     socket.roomId = generateId();
-
     socket.join(socket.roomId);
     var player = {
       username: data.username,
@@ -65,16 +64,31 @@ io.on("connection", (socket) => {
     if(!rooms[socket.roomId])
       rooms[socket.roomId] = {};
     rooms[socket.roomId].host = data.username;
+    rooms[socket.roomId].players = [];
     rooms[socket.roomId].players.push(player);
 
     socket.to(socket.roomId).emit('lobbyId', {
-      lobbyId: lobbyId,
+      lobbyId: socket.roomId,
       players: rooms[socket.roomId].players,
       theHost: rooms[socket.roomId].host
     });
 
     console.log('game created! ID: ', socket.roomId);
   });
+
+  socket.on('leaveLobby', (data) =>{
+    if(room[data.room].host == data.username){
+      socket.to(data.room).emit('roomDeleted', {
+        hostLeft: true
+      });
+      io.in(data.room).socketsLeave(data.room);
+    }
+    else{
+      socket.leave(data.room);
+    }
+
+      socket.leave(data.room);
+  })
 
   socket.on('joinLobby', (data) => {
     if(!rooms[data.room]){

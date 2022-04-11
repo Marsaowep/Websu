@@ -2,7 +2,7 @@ import React, { Component, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { socket } from "../App";
 
-function LobbyMenu(){
+export default function LobbyMenu(){
     const [lobbyId, setLobbyId] = useState();
     const [players, setPlayers] = useState();
     const [username, setUsername] = useState();
@@ -11,22 +11,22 @@ function LobbyMenu(){
 
     let navigate = useNavigate();
 
-    function createLobby(username){
+    const createLobby = (username) => {
         socket.emit('createLobby', {
             username: username
         });
-        navigate("/JoinLobby", {state: {username: username, players: players} });
+        navigate("/JoinLobby", {state: {username: username, players: players, lobbyId: lobbyId} });
         
     }
 
-    function joinALobby(lobbyId, username){
+    const joinALobby = (lobbyId, username) => {
         socket.emit('joinLobby', {
             username: username,
             room: lobbyId
         });
 
         if(roomExists){
-            navigate("/JoinLobby", {state: {username: username, players: players} });
+            navigate("/JoinLobby", {state: {username: username, players: players, lobbyId: lobbyId} });
         }
         else{
             window.alert("Lobby Doesn't exist");
@@ -37,6 +37,7 @@ function LobbyMenu(){
         setLobbyId(data.lobbyId);
         setPlayers(data.usernames);
         setLobbyHost(data.lobbyHost);
+        console.log(data.lobbyId);
     });
 
     socket.on('lobbyName', (data) =>{
@@ -52,8 +53,8 @@ function LobbyMenu(){
     return(
         <div className="lobby_menu_container">
             <div className="menu_buttons">
-                <button type='button' onClick={createLobby(username)}>Create A Lobby</button>
-                <form onSubmit={joinALobby(lobbyId, username)}>
+                <button onClick={() => {createLobby(username)}}>Create A Lobby</button>
+                <form>
                     <label htmlFor="user_name">Lobby Code:</label>
                     <input
                         type="text"
@@ -61,10 +62,10 @@ function LobbyMenu(){
                         name="room_id"
                         onChange={(e) => setLobbyId(e.target.value)}
                     ></input>
+                    <button onClick={() => {joinALobby(lobbyId, username)}}>Join</button>
                 </form>
             </div>
         </div>
     );
 }
 
-export default LobbyMenu;
