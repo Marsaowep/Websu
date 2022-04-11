@@ -71,6 +71,11 @@ export default class Game extends Component {
   };
 
 
+  click=(color)=>{
+    this.state.color=color
+    console.log("Game know u clicked"+this.state.color)
+  }
+
   setTarget=(event)=>{
     const min = 0;
     const max = 4;
@@ -103,31 +108,31 @@ export default class Game extends Component {
               <div className="play-row align-items-center">
               {
                    this.state.targets.map( target =>{
-                   return target.xid === 0 ? <Target xid={target.xid} yid={target.yid} target={target.target} color={this.state.color}/> : null})
+                   return target.xid === 0 ? <Target key={target.xid+"."+target.yid} xid={target.xid} yid={target.yid} target={target.target} click={this.click} /> : null})
                 }
               </div>
               <div className="align-items-center">
                 {
                    this.state.targets.map( target =>{
-                   return target.xid === 1 ? <Target xid={target.xid} yid={target.yid} target={target.target} color={this.state.color}/> : null})
+                   return target.xid === 1 ? <Target key={target.xid+"."+target.yid} xid={target.xid} yid={target.yid} target={target.target} click={this.click} /> : null})
                 }
               </div>
               <div className="play-row align-items-center">
                 {
                    this.state.targets.map( target =>{
-                   return target.xid === 2 ? <Target xid={target.xid} yid={target.yid} target={target.target} color={this.state.color}/> : null})
+                   return target.xid === 2 ? <Target key={target.xid+"."+target.yid} xid={target.xid} yid={target.yid} target={target.target} click={this.click} /> : null})
                 }
               </div>
               <div className="play-row align-items-center">
                 {
                    this.state.targets.map( target =>{
-                   return target.xid === 3 ? <Target xid={target.xid} yid={target.yid} target={target.target} color={this.state.color}/> : null})
+                   return target.xid === 3 ? <Target key={target.xid+"."+target.yid} xid={target.xid} yid={target.yid} target={target.target} click={this.click} /> : null})
                 }
               </div>
               <div className="play-row align-items-center">
                 {
                    this.state.targets.map( target =>{
-                   return target.xid === 4 ? <Target xid={target.xid} yid={target.yid} target={target.target} color={this.state.color}/> : null})
+                   return target.xid === 4 ? <Target key={target.xid+"."+target.yid} xid={target.xid} yid={target.yid} target={target.target} click={this.click} /> : null})
                 }
               </div>
               //<button className="button" onClick={this.setTarget}>Set Target</button>
