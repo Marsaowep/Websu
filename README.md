@@ -4,11 +4,12 @@ Websu is a MERN stack based web app designed to enhance users hand-eye coordinat
 The web-app has multiplayer support, where users can battle against one another in the same lobby, measuring the total correct hits, speed and accuracy of their hits against each other. 
 
 # Run Instructions
-In your working environment, navigate to /WebSu and run the following command:
-``` node server.js ``` To run the main backend server.
+In your working environment, navigate to /WebSu and run the following command:<br/>
+``` node server.js ``` <br/>
+To run the main backend server.<br/>
 
-Next, navigate to /WebSu/Front-End/websu-client and run the following command 
-```npm i``` 
+Next, navigate to /WebSu/Front-End/websu-client and run the following command<br/> 
+```npm i```<br/> 
 
-Once this is done, in the same directory, run 
-```npm start``` to start up the react server. Give it a minute, it may take some time to set up for the first time. 
+Once this is done, in the same directory, run<br/> 
+```npm start```<br/> to start up the react server. Give it a minute, it may take some time to set up for the first time. 
