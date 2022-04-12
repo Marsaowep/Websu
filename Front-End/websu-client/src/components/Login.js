@@ -41,7 +41,7 @@ function Login() {
 
     if (response.response) {
       console.log("Register Successful!");
-      navigate("/MainMenu", { response });
+      navigate("/MainMenu", { state: response });
     } else {
       window.alert("User Already Exists!");
     }
@@ -60,7 +60,7 @@ function Login() {
     console.log("login response: ", response);
     console.log(response.response);
     if (response.response) {
-      navigate("/MainMenu", { response });
+      navigate("/MainMenu", { state: response });
     } else {
       window.alert("Incorrect Credentials");
     }
@@ -93,11 +93,11 @@ function Login() {
               placeholder = "Username"
               onChange={(e) => setUserName(e.target.value)}
             ></input>
-          </div> 
+          </div>
         </div>
-        <div class = "text-center mb-4 text-white">
+        <div class="text-center mb-4 text-white">
           <label htmlFor="password">Password</label>
-          <div class = "passwordInput">
+          <div class="passwordInput">
             <input
               type="password"
               id="password"
@@ -105,7 +105,7 @@ function Login() {
               placeholder = "Password"
               onChange={(e) => setPassword(e.target.value)}
             ></input>
-          </div> 
+          </div>
         </div>
         <div class = "text-center mt-5 mb-5">
           <button onClick={handleSubmitLogin} id = "login" >Login</button>
