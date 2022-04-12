@@ -169,6 +169,16 @@ io.on("connection", (socket) => {
     });
   });
 
+  socket.on('gameStarted', (data) =>{
+    console.log(data.isHost)
+    if(data.isHost){
+      console.log(data);
+      io.sockets.to(data.roomId).emit('hostStarted', {
+        hostStarted: data.isHost
+      });
+    }
+  });
+
   io.emit("sendMessage", "SUCCESSFULLY CONNECTED");
   socket.on("disconnect", () => {
     console.log("user disconnected");

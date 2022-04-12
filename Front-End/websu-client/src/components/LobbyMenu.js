@@ -38,7 +38,12 @@ export default function LobbyMenu() {
     players = data.players;
     host = data.host;
     navigate("/JoinLobby", {
-      state: { username: username, players: players, lobbyId: theLobbyId },
+      state: {
+        username: username,
+        players: players,
+        lobbyId: theLobbyId,
+        host: host,
+      },
     });
   });
 
@@ -50,7 +55,12 @@ export default function LobbyMenu() {
 
     if (roomExists) {
       navigate("/JoinLobby", {
-        state: { username: username, players: players, lobbyId: theLobbyId },
+        state: {
+          username: username,
+          players: players,
+          lobbyId: theLobbyId,
+          host: host,
+        },
       });
     } else {
       window.alert("Lobby Doesn't exist");
