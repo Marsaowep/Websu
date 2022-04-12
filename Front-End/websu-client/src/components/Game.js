@@ -112,7 +112,7 @@ export default function Game() {
   const [numTarget, setNumTarget] = useState(0);
   const [startTime, setStartTime] = useState(new Date());
   const [time, setTime] = useState(Infinity);
-  const totalTarget = 3;
+  const totalTarget = 30;
 
   const location = useLocation();
   const navigate = useNavigate();

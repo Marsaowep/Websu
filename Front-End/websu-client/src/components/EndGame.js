@@ -55,7 +55,6 @@ export default function EndGame() {
 
   return (
     <div className="EndGame">
-      <h1> GAME ENDED LOL</h1>
       <div className="text-center text-light align-items-center mb-3 d-flex flex-column ">
         <h2>Lobby Code: {location.state.lobbyId}</h2>
         <div className="players_container">
