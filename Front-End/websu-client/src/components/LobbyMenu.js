@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
-import { socket } from "../App";
+import { socket } from "../index";
 
 export default function LobbyMenu() {
   var location = useLocation();

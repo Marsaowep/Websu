@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { socket } from "../App";
+import { socket } from "../index";
 
 export default function EndGame() {
   const location = useLocation();
@@ -40,17 +40,15 @@ export default function EndGame() {
 
   socket.on("roomDeleted", (data) => {
     //alert("Host has closed the Lobby!");
-    if(data.hostLeft){
+    if (data.hostLeft) {
       navigate("/MainMenu", {
         state: {
           username: location.state.username,
         },
       });
-    }
-    else{
+    } else {
       location.state.players = data.players;
     }
-
   });
 
   return (

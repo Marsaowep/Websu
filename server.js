@@ -107,29 +107,37 @@ io.on("connection", (socket) => {
   });
 
   socket.on("leaveLobby", (data) => {
-    if (rooms.find((e) => e.roomId === data.room).host == data.username) {
-      rooms = rooms.splice(
-        rooms.indexOf((e) => e.roomId === data.room),
-        1
+    console.log(rooms);
+    console.log(data);
+    if (rooms.find((e) => e.roomId === data.room).host === data.username) {
+      console.log("deleting room...");
+      console.log(rooms);
+
+      console.log(
+        "spliec???",
+        rooms.indexOf(rooms.find((e) => e.roomId === data.room))
       );
+      rooms.splice(rooms.indexOf(rooms.find((e) => e.roomId === data.room)), 1);
+      console.log(rooms);
       io.sockets.to(data.room).emit("roomDeleted", {
         hostLeft: true,
       });
       io.in(data.room).socketsLeave(data.room);
     } else {
       var players = rooms.find((e) => e.roomId === data.room).players;
-      var player_index = players.indexOf(data.username) - 1;
+      var player_index = players.indexOf(data.username);
       console.log(player_index);
-      players = players.splice(player_index, 1);
+      rooms.find((e) => e.roomId === data.room).players.splice(player_index, 1);
       console.log(players);
+
       scores = rooms.find((e) => e.roomId === data.room).scores;
       scores = scores.splice(player_index, 1);
       rooms.find((e) => e.roomId === data.room).scores = scores;
-      rooms.find((e) => e.roomId === data.room).players = players;
+      //rooms.find((e) => e.roomId === data.room).players = players;
 
       io.sockets.to(data.room).emit("roomDeleted", {
         hostLeft: false,
-        players: players
+        players: players,
       });
       socket.leave(data.room);
     }
@@ -175,8 +183,8 @@ io.on("connection", (socket) => {
   });
 
   socket.on("matchScores", (data) => {
-        io.sockets.to(data.room).emit("updateScores", {
-      username: data.username
+    io.sockets.to(data.room).emit("updateScores", {
+      username: data.username,
     });
   });
 

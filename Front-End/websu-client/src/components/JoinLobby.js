@@ -1,9 +1,10 @@
 import React, { Component, useState } from "react";
 import { Link, Navigate, useNavigate, useLocation } from "react-router-dom";
-import { socket } from "../App";
+import { socket } from "../index";
 
 function JoinLobby() {
   const location = useLocation();
+  const [players, setPlayers] = useState(location.state.players);
   console.log(location.state);
   const navigate = useNavigate();
   const startGame = () => {
@@ -19,6 +20,43 @@ function JoinLobby() {
     }
   };
 
+  const goBack = () => {
+    socket.emit("leaveLobby", {
+      room: location.state.lobbyId,
+      username: location.state.username,
+    });
+
+    navigate("/MainMenu", {
+      state: {
+        username: location.state.username,
+      },
+    });
+  };
+
+  socket.on("roomDeleted", (data) => {
+    //alert("Host has closed the Lobby!");
+    if (data.hostLeft) {
+      navigate("/MainMenu", {
+        state: {
+          username: location.state.username,
+        },
+      });
+    } else {
+      console.log("asjkgasdfgjasdfgjhkasasdfjasdfjhasdfjhasdf", data);
+      var temp = [];
+      for (let i = 0; i < data.players.length; i++) {
+        temp.push(data.players[i]);
+      }
+
+      setPlayers(temp);
+      location.state.players = players;
+    }
+  });
+
+  socket.on("lobbyName", (data) => {
+    setPlayers(data.usernames);
+  });
+
   socket.on("hostStarted", (data) => {
     console.log(data);
     if (data.hostStarted) {
@@ -26,7 +64,7 @@ function JoinLobby() {
     }
   });
 
-  const listItems = location.state.players.map((d) => <li key={d}>{d}</li>);
+  const listItems = players.map((d) => <li key={d}>{d}</li>);
   return (
     <div className="roomContainer">
       <div className="text-center text-light align-items-center mb-3 d-flex flex-column ">
@@ -38,6 +76,10 @@ function JoinLobby() {
 
         <button type="button" onClick={startGame}>
           Start
+        </button>
+
+        <button type="button" onClick={goBack}>
+          Back
         </button>
       </div>
     </div>

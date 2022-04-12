@@ -3,7 +3,7 @@ import MainMenu from "./MainMenu";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import Leaderboards from "./Leaderboards";
 import Target from "./Target";
-import { socket } from "../App";
+import { socket } from "../index";
 
 export default function Game() {
   var count = 0;
@@ -112,7 +112,7 @@ export default function Game() {
   const [numTarget, setNumTarget] = useState(0);
   const [startTime, setStartTime] = useState(new Date());
   const [time, setTime] = useState(Infinity);
-  const totalTarget = 30;
+  const totalTarget = 5;
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -138,10 +138,10 @@ export default function Game() {
       }
 
       alert("Great! You have finished!" + t);
-      if(location.state.single){
+      if (location.state.single) {
         console.log(location.state);
         navigate("/MainMenu", {
-          state: {username: location.state.location.username}
+          state: { username: location.state.location.username },
         });
       }
       socket.emit("matchScores", {
@@ -153,8 +153,6 @@ export default function Game() {
   };
 
   socket.on("updateScores", (data) => {
-
-
     navigate("/EndGame", {
       state: {
         scores: data.scores,
@@ -162,7 +160,7 @@ export default function Game() {
         players: location.state.players,
         host: location.state.host,
         username: location.state.username,
-        winner: data.username
+        winner: data.username,
       },
     });
   });

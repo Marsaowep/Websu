@@ -11,14 +11,8 @@ import {
   Profile,
   EndGame,
 } from "./components";
-import socketClient from "socket.io-client";
-const SERVER = "localhost:3000";
-
-export const socket = socketClient(SERVER);
 
 export default class App extends Component {
-  socket = socketClient(SERVER);
-
   state = {
     profile: {
       name: "Pos",
