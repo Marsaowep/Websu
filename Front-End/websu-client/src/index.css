@@ -43,6 +43,7 @@ input {
   font-size: 25px;
   width: 40%;
   padding-left: 10px;
+  border-style: none;
 }
 
 #login, #register {
@@ -54,12 +55,14 @@ input {
   background-color: #536878;
   color: white;
   padding: 20px;
+  border-style: none;
 }
 
 #login:hover, #register:hover{
   border-radius: 26px;
   transition: all 0.5s;
-  background-color: #768792;
+  background-color: #00beca;
+  border-style: none;
 }
 
 label {
