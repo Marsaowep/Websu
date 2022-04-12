@@ -1,19 +1,22 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
 export default class Target extends Component {
-    static defaultProps = {
-        target: false
-    }
+  static defaultProps = {
+    target: false,
+  };
 
-    handleClick=(event)=>{
-        const{target} = event
-        this.props.click(target.style.backgroundColor)
-    }
+  handleClick = (event) => {
+    const { target } = event;
+    this.props.click(target.style.backgroundColor);
+  };
   render() {
-    const {target} = this.props
+    const { target } = this.props;
     return (
-        <button className="button" style={{backgroundColor: target ? "red" : "white"}} onClick={this.handleClick}/>
-        
-    )
+      <button
+        className="button"
+        style={{ backgroundColor: target ? "red" : "#536878" }}
+        onClick={this.handleClick}
+      />
+    );
   }
 }

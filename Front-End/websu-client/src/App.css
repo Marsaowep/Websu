@@ -130,3 +130,12 @@ input[type="submit"]:hover {
   transition: 0.25s;
   border-color: white;
 }
+
+.gameBoard {
+  background-color: #536878;
+  padding: 10px;
+}
+
+.gameBoard .button {
+  border-style: none;
+}

@@ -21,7 +21,6 @@ export default function MainMenu(props) {
   return (
     <div className="main_menu_container pagination-centered">
       <div className="text-center text-light align-items-center mb-3 d-flex flex-column ">
-        <h1>this rocks</h1>
         <div className="menu_buttons d-flex flex-column w-50">
           <button className="mt-5 mb-5" onClick={singeplayer}>
             Single Player

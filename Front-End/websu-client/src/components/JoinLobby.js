@@ -3,9 +3,9 @@ import { Link, Navigate, useNavigate, useLocation } from "react-router-dom";
 
 function JoinLobby() {
   const location = useLocation();
-  console.log(location.state.players);
+  console.log(location.state);
   const navigate = useNavigate();
-  const startGame = () => navigate("/Game");
+  const startGame = () => navigate("/Game", { state: location.state });
 
   const listItems = location.state.players.map((d) => <li key={d}>{d}</li>);
   return (
