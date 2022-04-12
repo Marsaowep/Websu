@@ -1,30 +1,38 @@
-import React, {useEffect} from "react";
-import { Link, useNavigate, Route, Router, Routes, useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
+import {
+  Link,
+  useNavigate,
+  Route,
+  Router,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 import LobbyMenu from "./LobbyMenu";
-import Game from "./Game"
+import Game from "./Game";
 
+export default function MainMenu(props) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location.state);
+  const singeplayer = () => navigate("/Game", { state: location.state });
 
+  const multiplayer = () => navigate("/LobbyMenu", { state: location.state });
 
-export default function MainMenu(props){
+  return (
+    <div className="main_menu_container pagination-centered">
+      <div className="text-center text-light align-items-center mb-3 d-flex flex-column ">
+        <h1>this rocks</h1>
+        <div className="menu_buttons d-flex flex-column w-50">
+          <button className="mt-5 mb-5" onClick={singeplayer}>
+            Single Player
+          </button>
+          <button type="button" onClick={multiplayer}>
+            Multiplayer
+          </button>
+        </div>
 
-    const navigate = useNavigate();
-    const location = useLocation();
-    console.log(location.state);
-    const singeplayer = () => navigate("/Game", {state: location.state});
-
-    const multiplayer = () => navigate("/LobbyMenu", {state: location.state});
-
-    return(
-
-        <div className="main_menu_container">
-            <h1>this rocks</h1>
-            <div className="menu_buttons">
-                <button onClick={singeplayer}>Singeplayer</button>
-                <button type='button' onClick={multiplayer}>Multiplayer</button>
-            </div>
-
-            <div className="main_menu_routes">
-                {/* <Router>
+        <div className="main_menu_routes">
+          {/* <Router>
                     <Routes>
                         <Route exact path="/" element={<MainMenu />} />
                         <Route
@@ -35,7 +43,8 @@ export default function MainMenu(props){
                             path="/lobbyMenu"element={<LobbyMenu/>}/>
                     </Routes>
                 </Router> */}
-            </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 }
