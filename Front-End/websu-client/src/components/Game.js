@@ -111,7 +111,7 @@ export default function Game() {
   const [numTarget, setNumTarget] = useState(0);
   const [startTime, setStartTime] = useState(new Date());
   const [time, setTime] = useState(Infinity);
-  const totalTarget = 5;
+  const totalTarget = 30;
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -136,7 +136,7 @@ export default function Game() {
         setTime(t);
       }
 
-      alert("Great! You have finished!" + t);
+      alert("Great! You have finished! Time: " + t);
       if (location.state.single) {
         console.log(location.state);
         navigate("/MainMenu", {
