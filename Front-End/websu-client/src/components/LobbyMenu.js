@@ -38,7 +38,7 @@ export default function LobbyMenu(){
         theLobbyId = data.room;
         players = data.players;
         host = data.host;
-        navigate("/JoinLobby", {state: {username: username, players: players, lobbyId: theLobbyId} });
+        navigate("/JoinLobby", {state: {username: username, players: players, lobbyId: theLobbyId, host: host} });
     });
 
     socket.on('lobbyName', (data) =>{
@@ -48,7 +48,7 @@ export default function LobbyMenu(){
         theLobbyId = data.room;
 
         if(roomExists){
-            navigate("/JoinLobby", {state: {username: username, players: players, lobbyId: theLobbyId} });
+            navigate("/JoinLobby", {state: {username: username, players: players, lobbyId: theLobbyId, host: host} });
         }
         else{
             window.alert("Lobby Doesn't exist");
