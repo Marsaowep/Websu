@@ -30,11 +30,11 @@ export default class App extends Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="title col-sm-7">
-            <h2>Websu</h2>
+          <div className="title col-xs-11 col-sm-7 col-md-7">
+            <h1>Websu</h1>
           </div>
-          <div className="list-group col-sm-4">
-            <Link className="list-group-item algn-item-right" to="/Profile">
+          <div className="list-group col-xs-11 col-sm-4 col-md-4">
+            <Link className="list-group-item algn-items-right" to="/Profile">
               Profile
             </Link>
           </div>

@@ -8,7 +8,7 @@ export default class Profile extends Component {
       <div className="profile">
           <div className="container">
               <div className="row align-items-center">
-                  <div className="col-sm-6">
+                  <div className="align-items-left col-xs-11 col-sm-6 col-md-6">
                     <Link to="/Game" className='list-group-item'>Back</Link>
                     <h1>Profile Customization</h1>
                     <br></br>
@@ -31,8 +31,9 @@ export default class Profile extends Component {
                         </label><br></br>
                         <input type="submit" value="Submit" />
                     </form>
+                    <br></br>
                   </div>
-                  <div className='col-sm-6'>
+                  <div className='col-xs-11 col-sm-6 col-md-6'>
                       <h3>Player Stats</h3>
                       <h3>Number of Wins: {win}</h3><br></br>
                       <h3>Number of Ties: {tie} </h3><br></br>

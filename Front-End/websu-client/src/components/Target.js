@@ -7,7 +7,6 @@ export default class Target extends Component {
 
     handleClick=(event)=>{
         const{target} = event
-        alert("u clicked "+target.style.backgroundColor)
         this.props.click(target.style.backgroundColor)
     }
   render() {

@@ -18,10 +18,10 @@ body {
   background-color: azure;
   float:left;
   font-size: 20px;
-  line-height: 30px;
-  height: 30px;
+  line-height: 50px;
+  height: 50px;
   text-align: center;
-  width:30px;
+  width:50px;
 }
 
 code {
