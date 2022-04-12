@@ -1,7 +1,6 @@
 import React, { Component, useState } from "react";
 import MainMenu from "./MainMenu";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import Leaderboards from "./Leaderboards";
 import Target from "./Target";
 import { socket } from "../index";
 

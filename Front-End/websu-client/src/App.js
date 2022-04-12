@@ -8,7 +8,6 @@ import {
   LobbyMenu,
   Login,
   MainMenu,
-  Profile,
   EndGame,
 } from "./components";
 
