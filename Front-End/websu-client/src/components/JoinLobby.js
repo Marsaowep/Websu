@@ -8,6 +8,7 @@ function JoinLobby() {
   const navigate = useNavigate();
   const startGame = () => {
     if (location.state.host === location.state.username) {
+      console.log("YOYOYOYOYOYOYOYOYO");
       socket.emit("gameStarted", {
         roomId: location.state.lobbyId,
         username: location.state.username,
@@ -21,7 +22,7 @@ function JoinLobby() {
   socket.on("hostStarted", (data) => {
     console.log(data);
     if (data.hostStarted) {
-      navigate("/Game", { state: location });
+      navigate("/Game", { state: location.state });
     }
   });
 

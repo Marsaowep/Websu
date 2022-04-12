@@ -2,7 +2,14 @@ import React, { Component } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { Game, JoinLobby, LobbyMenu, Login, MainMenu, Profile } from "./components";
+import {
+  Game,
+  JoinLobby,
+  LobbyMenu,
+  Login,
+  MainMenu,
+  Profile,
+} from "./components";
 import socketClient from "socket.io-client";
 const SERVER = "localhost:3000";
 
@@ -38,16 +45,13 @@ export default class App extends Component {
           <div>
             <Routes>
               <Route exact path="/" element={<Login />} />
-              <Route path="/MainMenu" element={<MainMenu/>}/>
+              <Route path="/MainMenu" element={<MainMenu />} />
               <Route
                 path="/Game"
                 element={<Game globalLeaders={this.state.globalLeaders} />}
               />
-              <Route
-                path="/LobbyMenu"
-                element={<LobbyMenu />}
-              />
-              <Route path="/JoinLobby" element={<JoinLobby/>}></Route>
+              <Route path="/LobbyMenu" element={<LobbyMenu />} />
+              <Route path="/JoinLobby" element={<JoinLobby />}></Route>
             </Routes>
           </div>
         </div>
