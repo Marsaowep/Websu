@@ -1,8 +1,8 @@
 import React, { Component, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { socket } from "../App";
 
-export default function LobbyMenu(){
+export default function LobbyMenu(props){
     const [lobbyId, setLobbyId] = useState();
     const [players, setPlayers] = useState();
     const [username, setUsername] = useState();
@@ -10,11 +10,19 @@ export default function LobbyMenu(){
     const [lobbyHost, setLobbyHost] = useState();
 
     let navigate = useNavigate();
+    let location = useLocation();
 
-    const createLobby = (username) => {
+    const createLobby = () => {
         socket.emit('createLobby', {
-            username: username
+            username: 'gamer'
+        }, function(data) {
+            console.log(data.lobbyId);
+            setLobbyId(data.lobbyId);
+            setPlayers(data.usernames);
+            setLobbyHost(data.lobbyHost);
         });
+
+        console.log(lobbyId);
         navigate("/JoinLobby", {state: {username: username, players: players, lobbyId: lobbyId} });
         
     }
@@ -33,11 +41,11 @@ export default function LobbyMenu(){
         }
     }
 
-    socket.on('lobbyId', (data)=>{
+    socket.on('lobbyId', async (data)=>{
+        console.log(data.lobbyId);
         setLobbyId(data.lobbyId);
         setPlayers(data.usernames);
         setLobbyHost(data.lobbyHost);
-        console.log(data.lobbyId);
     });
 
     socket.on('lobbyName', (data) =>{

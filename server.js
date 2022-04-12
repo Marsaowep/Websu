@@ -74,26 +74,26 @@ io.on("connection", (socket) => {
 
   socket.on('createLobby', (data) => {
 
-    socket.roomId = generateId();
-    socket.join(socket.roomId);
+    var roomId = generateId();
+    socket.join(roomId);
     var player = {
       username: data.username,
       score: 0
     };
+    console.log(data.username);
+    if(!rooms[roomId])
+      rooms[roomId] = {};
+    rooms[roomId].host = data.username;
+    rooms[roomId].players = [];
+    rooms[roomId].players.push(player);
 
-    if(!rooms[socket.roomId])
-      rooms[socket.roomId] = {};
-    rooms[socket.roomId].host = data.username;
-    rooms[socket.roomId].players = [];
-    rooms[socket.roomId].players.push(player);
-
-    socket.to(socket.roomId).emit('lobbyId', {
-      lobbyId: socket.roomId,
-      players: rooms[socket.roomId].players,
-      theHost: rooms[socket.roomId].host
+    socket.to(roomId).emit('lobbyId', {
+      lobbyId: roomId,
+      players: rooms[roomId].players,
+      theHost: rooms[roomId].host
     });
 
-    console.log('game created! ID: ', socket.roomId);
+    console.log('game created! ID: ', roomId);
   });
 
   socket.on('leaveLobby', (data) =>{
