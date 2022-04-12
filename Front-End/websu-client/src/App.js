@@ -30,13 +30,8 @@ export default class App extends Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="title col-xs-11 col-sm-7 col-md-7">
+          <div className="text-center text-light mt-5">
             <h1>Websu</h1>
-          </div>
-          <div className="list-group col-xs-11 col-sm-4 col-md-4">
-            <Link className="list-group-item algn-items-right" to="/Profile">
-              Profile
-            </Link>
           </div>
           <div className="row">
             <Routes>

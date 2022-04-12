@@ -82,28 +82,38 @@ function Login() {
 
   return (
     <div className="login_container">
-      Form
       <form onSubmit={handleSubmitRegister}>
-        <label htmlFor="user_name">User Name:</label>
-        <input
-          type="text"
-          id="user_name"
-          name="user_name"
-          onChange={(e) => setUserName(e.target.value)}
-        ></input>
-        <label htmlFor="password">Password:</label>
-        <input
-          type="text"
-          id="password"
-          name="password"
-          onChange={(e) => setPassword(e.target.value)}
-        ></input>
-        <button onClick={handleSubmitLogin}>Login</button>
-        <input type="submit" value="Register"></input>
+        <div class = "text-center mb-4 text-white">
+          <label htmlFor="user_name">User Name</label>
+          <div class = "usernameInput">
+            <input
+              type="text"
+              id="user_name"
+              name="user_name"
+              placeholder = "username"
+              onChange={(e) => setUserName(e.target.value)}
+            ></input>
+          </div> 
+        </div>
+        <div class = "text-center mb-4 text-white">
+          <label htmlFor="password">Password</label>
+          <div class = "passwordInput">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder = "password"
+              onChange={(e) => setPassword(e.target.value)}
+            ></input>
+          </div> 
+        </div>
+        <div class = "text-center mb-3">
+          <button onClick={handleSubmitLogin}>Login</button>
+        </div>
+        <div class = "text-center mb-3">
+            <input type="submit" value="Register"></input>
+        </div>
       </form>
-      <Link to="/Game">Game</Link>
-      <br></br>
-      <Link to="/Profile">Profile</Link>
     </div>
   );
 }

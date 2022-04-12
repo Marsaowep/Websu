@@ -5,9 +5,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #6699cc;
+  background-color: #36454F;
   color:white;
 }
+
 
 .play-row{
   clear:both;
