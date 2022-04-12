@@ -69,3 +69,64 @@
   border-radius: 26px;
   transition: 0.25s;
 }
+
+input[type="submit"] {
+  transition: all 0.5s;
+  border-radius: 16px;
+  font-weight: bold;
+  font-size: 25px;
+  background-color: #536878;
+  color: white;
+  padding: 20px;
+  border-style: none;
+}
+
+input[type="submit"]:hover {
+  border-radius: 26px;
+  transition: all 0.5s;
+  background-color: #00beca;
+  border-style: none;
+}
+
+.players_container {
+  background-color: #536878;
+  width: 40%;
+  height: 30vh;
+  text-align: center;
+}
+
+.players_container h2 {
+  margin-top: 5px;
+  font-weight: bold;
+}
+
+.players_container li {
+  list-style: none;
+  font-weight: bold;
+  color: white;
+  font-size: 24px;
+}
+
+.roomContainer button {
+  margin-top: 2vh;
+  background-color: #536878;
+  color: white;
+  transition: 0.25s;
+  border-radius: 16px;
+  padding: 20px;
+  font: 25px;
+  font-weight: bold;
+  font-size: 25px;
+  border-style: solid;
+  border-color: #00beca;
+
+  width: 30%;
+}
+
+.roomContainer button:hover {
+  background-color: #00beca;
+  color: white;
+  border-radius: 26px;
+  transition: 0.25s;
+  border-color: white;
+}
