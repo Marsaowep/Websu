@@ -41,7 +41,7 @@ function Login() {
 
     if (response.response) {
       console.log("Register Successful!");
-      navigate("/MainMenu", { response });
+      navigate("/MainMenu", { state: response });
     } else {
       window.alert("User Already Exists!");
     }
@@ -60,7 +60,7 @@ function Login() {
     console.log("login response: ", response);
     console.log(response.response);
     if (response.response) {
-      navigate("/MainMenu", { response });
+      navigate("/MainMenu", { state: response });
     } else {
       window.alert("Incorrect Credentials");
     }
@@ -83,35 +83,35 @@ function Login() {
   return (
     <div className="login_container">
       <form onSubmit={handleSubmitRegister}>
-        <div class = "text-center mb-4 text-white">
+        <div class="text-center mb-4 text-white">
           <label htmlFor="user_name">User Name</label>
-          <div class = "usernameInput">
+          <div class="usernameInput">
             <input
               type="text"
               id="user_name"
               name="user_name"
-              placeholder = "username"
+              placeholder="username"
               onChange={(e) => setUserName(e.target.value)}
             ></input>
-          </div> 
+          </div>
         </div>
-        <div class = "text-center mb-4 text-white">
+        <div class="text-center mb-4 text-white">
           <label htmlFor="password">Password</label>
-          <div class = "passwordInput">
+          <div class="passwordInput">
             <input
               type="password"
               id="password"
               name="password"
-              placeholder = "password"
+              placeholder="password"
               onChange={(e) => setPassword(e.target.value)}
             ></input>
-          </div> 
+          </div>
         </div>
-        <div class = "text-center mb-3">
+        <div class="text-center mb-3">
           <button onClick={handleSubmitLogin}>Login</button>
         </div>
-        <div class = "text-center mb-3">
-            <input type="submit" value="Register"></input>
+        <div class="text-center mb-3">
+          <input type="submit" value="Register"></input>
         </div>
       </form>
     </div>
