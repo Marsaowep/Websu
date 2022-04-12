@@ -83,14 +83,14 @@ function Login() {
   return (
     <div className="login_container">
       <form onSubmit={handleSubmitRegister}>
-        <div class="text-center mb-4 text-white">
-          <label htmlFor="user_name">User Name</label>
-          <div class="usernameInput">
+        <div class = "text-center mb-4 text-white">
+          <label htmlFor="user_name">Username</label>
+          <div class = "usernameInput">
             <input
               type="text"
               id="user_name"
               name="user_name"
-              placeholder="username"
+              placeholder = "Username"
               onChange={(e) => setUserName(e.target.value)}
             ></input>
           </div>
@@ -102,16 +102,16 @@ function Login() {
               type="password"
               id="password"
               name="password"
-              placeholder="password"
+              placeholder = "Password"
               onChange={(e) => setPassword(e.target.value)}
             ></input>
           </div>
         </div>
-        <div class="text-center mb-3">
-          <button onClick={handleSubmitLogin}>Login</button>
+        <div class = "text-center mt-5 mb-5">
+          <button onClick={handleSubmitLogin} id = "login" >Login</button>
         </div>
-        <div class="text-center mb-3">
-          <input type="submit" value="Register"></input>
+        <div class = "text-center mb-3">
+            <input type="submit" value="Register" id = "register"></input>
         </div>
       </form>
     </div>
