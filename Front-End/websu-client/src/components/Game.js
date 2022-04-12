@@ -138,6 +138,12 @@ export default function Game() {
       }
 
       alert("Great! You have finished!" + t);
+      if(location.state.single){
+        console.log(location.state);
+        navigate("/MainMenu", {
+          state: {username: location.state.location.username}
+        });
+      }
       socket.emit("matchScores", {
         room: location.state.lobbyId,
         username: location.state.username,
@@ -147,19 +153,18 @@ export default function Game() {
   };
 
   socket.on("updateScores", (data) => {
-    count++;
 
-    if (count == location.state.players.length) {
-      navigate("/EndGame", {
-        state: {
-          scores: data.scores,
-          lobby: location.state.lobbyId,
-          players: location.state.players,
-          host: location.state.host,
-          username: location.state.username,
-        },
-      });
-    }
+
+    navigate("/EndGame", {
+      state: {
+        scores: data.scores,
+        lobby: location.state.lobbyId,
+        players: location.state.players,
+        host: location.state.host,
+        username: location.state.username,
+        winner: data.username
+      },
+    });
   });
 
   const setTarget = (event) => {

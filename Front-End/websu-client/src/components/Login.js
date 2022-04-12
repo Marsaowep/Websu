@@ -41,7 +41,7 @@ function Login() {
 
     if (response.response) {
       console.log("Register Successful!");
-      navigate("/MainMenu", { state: response });
+      navigate("/MainMenu", { state: { username: response.response.name } });
     } else {
       window.alert("User Already Exists!");
     }

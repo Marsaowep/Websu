@@ -63,7 +63,7 @@ export default function LobbyMenu() {
         },
       });
     } else {
-      window.alert("Lobby Doesn't exist");
+      alert("Lobby Doesn't exist");
     }
   });
 

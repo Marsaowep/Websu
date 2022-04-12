@@ -14,7 +14,7 @@ export default function MainMenu(props) {
   const navigate = useNavigate();
   const location = useLocation();
   console.log(location.state);
-  const singeplayer = () => navigate("/Game", { state: location.state });
+  const singeplayer = () => navigate("/Game", { state:{ location: location.state, single: true }});
 
   const multiplayer = () => navigate("/LobbyMenu", { state: location.state });
 

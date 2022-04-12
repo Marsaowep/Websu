@@ -112,19 +112,25 @@ io.on("connection", (socket) => {
         rooms.indexOf((e) => e.roomId === data.room),
         1
       );
-      socket.broadcast.to(data.room).emit("roomDeleted", {
+      io.sockets.to(data.room).emit("roomDeleted", {
         hostLeft: true,
       });
       io.in(data.room).socketsLeave(data.room);
     } else {
       var players = rooms.find((e) => e.roomId === data.room).players;
-      var player_index = players.indexOf(data.username);
-      players = players.splice(players_index, 1);
+      var player_index = players.indexOf(data.username) - 1;
+      console.log(player_index);
+      players = players.splice(player_index, 1);
+      console.log(players);
       scores = rooms.find((e) => e.roomId === data.room).scores;
       scores = scores.splice(player_index, 1);
       rooms.find((e) => e.roomId === data.room).scores = scores;
       rooms.find((e) => e.roomId === data.room).players = players;
 
+      io.sockets.to(data.room).emit("roomDeleted", {
+        hostLeft: false,
+        players: players
+      });
       socket.leave(data.room);
     }
   });
@@ -160,8 +166,6 @@ io.on("connection", (socket) => {
     } else {
       console.log(data.roomId);
       io.sockets.to(data.roomId).emit("lobbyName", {
-        usernames: rooms.find((e) => e.roomId === data.roomId).players,
-        lobbyHost: rooms.find((e) => e.roomId === data.roomId).host,
         room: data.roomId,
         roomExists: false,
       });
@@ -171,20 +175,8 @@ io.on("connection", (socket) => {
   });
 
   socket.on("matchScores", (data) => {
-    var scoreIndex = -1;
-    let obj = rooms.find((e) => e.roomId === data.room);
-    for (let i = 0; i < obj.players.length; i++) {
-      if (obj.players[i] === data.username) {
-        scoreIndex = i;
-      }
-    }
-
-    if (scoreIndex >= 0) {
-      obj.scores[scoreIndex] = data.score;
-    }
-
-    io.sockets.to(data.room).emit("updateScores", {
-      scores: obj.scores,
+        io.sockets.to(data.room).emit("updateScores", {
+      username: data.username
     });
   });
 
