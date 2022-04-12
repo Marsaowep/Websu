@@ -25,9 +25,46 @@ body {
   width:50px;
 }
 
+/*Login Styling*/
+
+h1{
+  font-size: 80px;
+  text-align: center;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+input {
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 25px;
+  width: 40%;
+  padding-left: 10px;
+}
+
+#login, #register {
+  transition: all 0.5s;
+  border-radius: 16px;
+  font-weight: bold;
+  font-size: 25px;
+  width: 40%;
+  background-color: #536878;
+  color: white;
+  padding: 20px;
+}
+
+#login:hover, #register:hover{
+  border-radius: 26px;
+  transition: all 0.5s;
+  background-color: #768792;
+}
+
+label {
+  font-weight: normal;
+  font-size: 25px;
 }
 
 
