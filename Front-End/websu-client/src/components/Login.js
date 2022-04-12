@@ -41,7 +41,7 @@ function Login() {
 
     if (response.response) {
       console.log("Register Successful!");
-      navigate("/MainMenu", { response });
+      navigate("/MainMenu", { state: response });
     } else {
       window.alert("User Already Exists!");
     }
@@ -60,7 +60,7 @@ function Login() {
     console.log("login response: ", response);
     console.log(response.response);
     if (response.response) {
-      navigate("/MainMenu", { response });
+      navigate("/MainMenu", { state: response });
     } else {
       window.alert("Incorrect Credentials");
     }

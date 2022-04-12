@@ -2,67 +2,68 @@ import React, { Component, useState } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { socket } from "../App";
 
-export default function LobbyMenu(props){
+export default function LobbyMenu(){
+
+    var location = useLocation();
+
     const [lobbyId, setLobbyId] = useState();
-    const [players, setPlayers] = useState();
-    const [username, setUsername] = useState();
-    const [roomExists, setRoomExists] = useState();
-    const [lobbyHost, setLobbyHost] = useState();
+    var theLobbyId = "";
+    var players = [];
+    var host = "";
+    var playerScores = [];
+    var username = location.state.response.name;
+    var roomExists = false;
 
     let navigate = useNavigate();
-    let location = useLocation();
 
+    console.log('username: ', username);
     const createLobby = () => {
         socket.emit('createLobby', {
-            username: 'gamer'
-        }, function(data) {
-            console.log(data.lobbyId);
-            setLobbyId(data.lobbyId);
-            setPlayers(data.usernames);
-            setLobbyHost(data.lobbyHost);
+            username: username
         });
-
-        console.log(lobbyId);
-        navigate("/JoinLobby", {state: {username: username, players: players, lobbyId: lobbyId} });
-        
     }
 
-    const joinALobby = (lobbyId, username) => {
+    const joinALobby = (e) => {
+        e.preventDefault();
         socket.emit('joinLobby', {
             username: username,
-            room: lobbyId
+            roomId: lobbyId
         });
+    }
+
+    socket.on('lobbyId', async (data)=>{
+        console.log(data.room);
+        console.log(data.players);
+        console.log(data.host);
+        theLobbyId = data.room;
+        players = data.players;
+        host = data.host;
+        navigate("/JoinLobby", {state: {username: username, players: players, lobbyId: theLobbyId} });
+    });
+
+    socket.on('lobbyName', (data) =>{
+        roomExists = data.roomExists;
+        players = data.usernames;
+        host = data.lobbyHost;
+        theLobbyId = data.room;
 
         if(roomExists){
-            navigate("/JoinLobby", {state: {username: username, players: players, lobbyId: lobbyId} });
+            navigate("/JoinLobby", {state: {username: username, players: players, lobbyId: theLobbyId} });
         }
         else{
             window.alert("Lobby Doesn't exist");
         }
-    }
-
-    socket.on('lobbyId', async (data)=>{
-        console.log(data.lobbyId);
-        setLobbyId(data.lobbyId);
-        setPlayers(data.usernames);
-        setLobbyHost(data.lobbyHost);
-    });
-
-    socket.on('lobbyName', (data) =>{
-        setRoomExists(data.roomExists);
-        setPlayers(data.usernames);
-        setLobbyHost(data.lobbyHost);
     });
 
     socket.on('updateScores', (data) =>{
-        setPlayers(data.usernames)
+        playerScores = data.scores
     });
 
     return(
         <div className="lobby_menu_container">
             <div className="menu_buttons">
                 <button onClick={() => {createLobby(username)}}>Create A Lobby</button>
-                <form>
+                <form onSubmit={joinALobby}>
                     <label htmlFor="user_name">Lobby Code:</label>
                     <input
                         type="text"
@@ -70,7 +71,7 @@ export default function LobbyMenu(props){
                         name="room_id"
                         onChange={(e) => setLobbyId(e.target.value)}
                     ></input>
-                    <button onClick={() => {joinALobby(lobbyId, username)}}>Join</button>
+                    <input type="submit" data="Join"></input>
                 </form>
             </div>
         </div>

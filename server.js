@@ -10,8 +10,9 @@ const bodyParser = require("body-parser");
 var userCount = 0;
 var connectedClients = {};
 
+var rooms = [];
 
-var rooms = {};
+
 
 
 const { MongoClient } = require("mongodb");
@@ -63,8 +64,14 @@ function generateId(){
   var result           = '';
   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   var charactersLength = characters.length;
-  for ( var i = 0; i < length; i++ ) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  while(1){
+    for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    var obj = rooms.find(e => e.roomId === result);
+    if(typeof obj === 'undefined'){
+      break;
+    }
   }
   return result;
 }
@@ -76,29 +83,32 @@ io.on("connection", (socket) => {
 
     var roomId = generateId();
     socket.join(roomId);
-    var player = {
-      username: data.username,
-      score: 0
-    };
     console.log(data.username);
-    if(!rooms[roomId])
-      rooms[roomId] = {};
-    rooms[roomId].host = data.username;
-    rooms[roomId].players = [];
-    rooms[roomId].players.push(player);
+    console.log('socket room: ', io.sockets.adapter.rooms.get(roomId));
+    var room = {
+      roomId: roomId,
+      host: data.username,
+      players: [data.username],
+      scores: [0]
+    };
 
-    socket.to(roomId).emit('lobbyId', {
-      lobbyId: roomId,
-      players: rooms[roomId].players,
-      theHost: rooms[roomId].host
+    rooms.push(room);
+
+    console.log('the host: ', rooms.find(e => e.roomId === roomId).host);
+    console.log('the players: ', rooms.find(e => e.roomId === roomId).players);
+    console.log('the scores: ', rooms.find(e => e.roomId === roomId).scores);
+    io.sockets.to(roomId).emit('lobbyId', {
+      room: rooms.find(e => e.roomId === roomId).roomId,
+      host: rooms.find(e => e.roomId === roomId).host,
+      players: rooms.find(e => e.roomId === roomId).players
     });
 
     console.log('game created! ID: ', roomId);
   });
 
   socket.on('leaveLobby', (data) =>{
-    if(room[data.room].host == data.username){
-      socket.to(data.room).emit('roomDeleted', {
+    if(rooms.find(e => e.roomId === data.room).host == data.username){
+      socket.broadcast.to(data.room).emit('roomDeleted', {
         hostLeft: true
       });
       io.in(data.room).socketsLeave(data.room);
@@ -106,30 +116,35 @@ io.on("connection", (socket) => {
     else{
       socket.leave(data.room);
     }
-
-      socket.leave(data.room);
-  })
+  });
 
   socket.on('joinLobby', (data) => {
-    if(!rooms[data.room]){
-      socket.join(data.room);
-      var player = {
-        username: data.username,
-        score: 0
-      };
+    if(typeof rooms.find(e => e.roomId === data.roomId) !=='undefined'){
+      socket.join(data.roomId);
 
-      rooms[data.room].players.push(player);
-      socket.to(data.room).emit('lobbyName', {
-        usernames: rooms[data.room].players,
-        lobbyHost: rooms[data.room].host,
+      console.log(data.roomId);
+
+      rooms.find(e => e.roomId === data.roomId).players.push(data.username);
+      rooms.find(e => e.roomId === data.roomId).scores.push(0);
+
+      console.log('the host: ', rooms.find(e => e.roomId === data.roomId).host);
+      console.log('the players: ', rooms.find(e => e.roomId === data.roomId).players);
+      console.log('the scores: ', rooms.find(e => e.roomId === data.roomId).scores);
+      
+      io.sockets.to(data.roomId).emit('lobbyName', {
+        usernames: rooms.find(e => e.roomId === data.roomId).players,
+        lobbyHost: rooms.find(e => e.roomId === data.roomId).host,
+        room: data.roomId,
         roomExists: true
       });
 
     }
     else{
-      socket.to(data.room).emit('lobbyName', {
-        usernames: rooms[data.room].players,
-        lobbyHost: rooms[data.room].host,
+      console.log(data.roomId);
+      io.sockets.to(data.roomId).emit('lobbyName', {
+        usernames: rooms.find(e => e.roomId === data.roomId).players,
+        lobbyHost: rooms.find(e => e.roomId === data.roomId).host,
+        room: data.roomId,
         roomExists: false
       });
 
@@ -138,25 +153,25 @@ io.on("connection", (socket) => {
   });
 
   socket.on('matchScores', (data) =>{
-    let obj = rooms[data.room].players.find((o, i) => {
-      if (o.username === data.username){
-        rooms[data.room].players[i].score = data.score;
+    var scoreIndex = -1;
+    let obj = rooms.find(e => e.roomId === data.room);
+    for(let i = 0; i < obj.players.length; i++){
+      if(obj.players[i] === data.username){
+        scoreIndex = i;
       }
-    });
-    socket.to(data.room).emit('updateScores', {
-      usernames: rooms[data.room].players,
+    }
+
+    if(scoreIndex >= 0){
+      obj.scores[scoreIndex] = data.score;
+    }
+    io.sockets.to(data.room).emit('updateScores', {
+      scores: obj.scores
     });
   });
 
   io.emit("sendMessage", "SUCCESSFULLY CONNECTED");
   socket.on("disconnect", () => {
     console.log("user disconnected");
-  });
-});
-
-io.on("connection", (socket) => {
-  socket.on("sendMessage", (msg) => {
-    console.log(msg);
   });
 });
 

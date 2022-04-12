@@ -1,10 +1,10 @@
 import React, { Component, useState } from "react";
 import { Link, Navigate, useNavigate, useLocation } from "react-router-dom";
 
-function JoinLobby(props){
+function JoinLobby(){
     
     const location = useLocation();
-    console.log(location.state.lobbyId);
+    console.log(location.state);
     const navigate = useNavigate();
     const startGame = () => navigate("/Game");
     return(

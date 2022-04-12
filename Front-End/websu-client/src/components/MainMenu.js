@@ -5,13 +5,14 @@ import Game from "./Game"
 
 
 
-export default function MainMenu(){
+export default function MainMenu(props){
 
     const navigate = useNavigate();
     const location = useLocation();
-    const singeplayer = () => navigate("/Game", {location});
+    console.log(location.state);
+    const singeplayer = () => navigate("/Game", {state: location.state});
 
-    const multiplayer = () => navigate("/LobbyMenu", {location});
+    const multiplayer = () => navigate("/LobbyMenu", {state: location.state});
 
     return(
 
