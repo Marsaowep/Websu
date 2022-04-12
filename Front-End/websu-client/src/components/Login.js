@@ -84,9 +84,9 @@ function Login() {
   return (
     <div className="login_container">
       <form onSubmit={handleSubmitRegister}>
-        <div class="text-center mb-4 text-white">
+        <div className="text-center mb-4 text-white">
           <label htmlFor="user_name">Username</label>
-          <div class="usernameInput">
+          <div className="usernameInput">
             <input
               type="text"
               id="user_name"
@@ -96,9 +96,9 @@ function Login() {
             ></input>
           </div>
         </div>
-        <div class="text-center mb-4 text-white">
+        <div className="text-center mb-4 text-white">
           <label htmlFor="password">Password</label>
-          <div class="passwordInput">
+          <div className="passwordInput">
             <input
               type="password"
               id="password"
@@ -108,12 +108,12 @@ function Login() {
             ></input>
           </div>
         </div>
-        <div class="text-center mt-5 mb-5">
+        <div className="text-center mt-5 mb-5">
           <button onClick={handleSubmitLogin} id="login">
             Login
           </button>
         </div>
-        <div class="text-center mb-3">
+        <div className="text-center mb-3">
           <input type="submit" value="Register" id="register"></input>
         </div>
       </form>
