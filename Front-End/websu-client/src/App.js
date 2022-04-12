@@ -35,7 +35,7 @@ export default class App extends Component {
           <div className="text-center text-light mt-5">
             <h1>Websu</h1>
           </div>
-          <div className="row">
+          <div>
             <Routes>
               <Route exact path="/" element={<Login />} />
               <Route path="/MainMenu" element={<MainMenu/>}/>
