@@ -7,6 +7,14 @@ const io = new Server(server);
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
+var userCount = 0;
+var connectedClients = {};
+
+var rooms = [];
+
+
+
+
 const { MongoClient } = require("mongodb");
 app.use(cors());
 app.use(bodyParser.json());
@@ -51,17 +59,119 @@ server.listen(PORT, () => {
   console.log("listening on *:" + PORT);
 });
 
+function generateId(){
+  var length = 6;
+  var result           = '';
+  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  while(1){
+    for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    var obj = rooms.find(e => e.roomId === result);
+    if(typeof obj === 'undefined'){
+      break;
+    }
+  }
+  return result;
+}
+
 io.on("connection", (socket) => {
   console.log("a user connected");
+
+  socket.on('createLobby', (data) => {
+
+    var roomId = generateId();
+    socket.join(roomId);
+    console.log(data.username);
+    console.log('socket room: ', io.sockets.adapter.rooms.get(roomId));
+    var room = {
+      roomId: roomId,
+      host: data.username,
+      players: [data.username],
+      scores: [0]
+    };
+
+    rooms.push(room);
+
+    console.log('the host: ', rooms.find(e => e.roomId === roomId).host);
+    console.log('the players: ', rooms.find(e => e.roomId === roomId).players);
+    console.log('the scores: ', rooms.find(e => e.roomId === roomId).scores);
+    io.sockets.to(roomId).emit('lobbyId', {
+      room: rooms.find(e => e.roomId === roomId).roomId,
+      host: rooms.find(e => e.roomId === roomId).host,
+      players: rooms.find(e => e.roomId === roomId).players
+    });
+
+    console.log('game created! ID: ', roomId);
+  });
+
+  socket.on('leaveLobby', (data) =>{
+    if(rooms.find(e => e.roomId === data.room).host == data.username){
+      socket.broadcast.to(data.room).emit('roomDeleted', {
+        hostLeft: true
+      });
+      io.in(data.room).socketsLeave(data.room);
+    }
+    else{
+      socket.leave(data.room);
+    }
+  });
+
+  socket.on('joinLobby', (data) => {
+    if(typeof rooms.find(e => e.roomId === data.roomId) !=='undefined'){
+      socket.join(data.roomId);
+
+      console.log(data.roomId);
+
+      rooms.find(e => e.roomId === data.roomId).players.push(data.username);
+      rooms.find(e => e.roomId === data.roomId).scores.push(0);
+
+      console.log('the host: ', rooms.find(e => e.roomId === data.roomId).host);
+      console.log('the players: ', rooms.find(e => e.roomId === data.roomId).players);
+      console.log('the scores: ', rooms.find(e => e.roomId === data.roomId).scores);
+      
+      io.sockets.to(data.roomId).emit('lobbyName', {
+        usernames: rooms.find(e => e.roomId === data.roomId).players,
+        lobbyHost: rooms.find(e => e.roomId === data.roomId).host,
+        room: data.roomId,
+        roomExists: true
+      });
+
+    }
+    else{
+      console.log(data.roomId);
+      io.sockets.to(data.roomId).emit('lobbyName', {
+        usernames: rooms.find(e => e.roomId === data.roomId).players,
+        lobbyHost: rooms.find(e => e.roomId === data.roomId).host,
+        room: data.roomId,
+        roomExists: false
+      });
+
+      console.log("room doesnt exist");
+    }
+  });
+
+  socket.on('matchScores', (data) =>{
+    var scoreIndex = -1;
+    let obj = rooms.find(e => e.roomId === data.room);
+    for(let i = 0; i < obj.players.length; i++){
+      if(obj.players[i] === data.username){
+        scoreIndex = i;
+      }
+    }
+
+    if(scoreIndex >= 0){
+      obj.scores[scoreIndex] = data.score;
+    }
+    io.sockets.to(data.room).emit('updateScores', {
+      scores: obj.scores
+    });
+  });
+
   io.emit("sendMessage", "SUCCESSFULLY CONNECTED");
   socket.on("disconnect", () => {
     console.log("user disconnected");
-  });
-});
-
-io.on("connection", (socket) => {
-  socket.on("sendMessage", (msg) => {
-    console.log(msg);
   });
 });
 
