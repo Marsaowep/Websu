@@ -136,7 +136,7 @@ export default function Game() {
         setTime(t);
       }
 
-      alert("Great! You have finished! Time: " + t);
+      alert("Great! You have finished! Time: " + parseInt(t) + "s");
       if (location.state.single) {
         console.log(location.state);
         navigate("/MainMenu", {
@@ -188,8 +188,8 @@ export default function Game() {
       <div className="container">
         <div className="text-center text-light align-items-center mb-3 d-flex flex-column">
           <div className="gameBoard">
-            <h2>
-              Target: {numTarget}/{totalTarget} Best Time: {time} s
+            <h2 className = "text-center">
+              Target: {numTarget}/{totalTarget}
             </h2>
             <div className="play-row align-items-center">
               {targets.map((target) => {
