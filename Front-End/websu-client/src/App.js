@@ -9,6 +9,7 @@ import {
   Login,
   MainMenu,
   Profile,
+  EndGame,
 } from "./components";
 import socketClient from "socket.io-client";
 const SERVER = "localhost:3000";
@@ -52,6 +53,7 @@ export default class App extends Component {
               />
               <Route path="/LobbyMenu" element={<LobbyMenu />} />
               <Route path="/JoinLobby" element={<JoinLobby />}></Route>
+              <Route path="/EndGame" element={<EndGame />}></Route>
             </Routes>
           </div>
         </div>

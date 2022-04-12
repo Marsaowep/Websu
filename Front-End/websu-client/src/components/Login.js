@@ -59,8 +59,9 @@ function Login() {
 
     console.log("login response: ", response);
     console.log(response.response);
+    console.log(response.name);
     if (response.response) {
-      navigate("/MainMenu", { state: response });
+      navigate("/MainMenu", { state: { username: response.response.name } });
     } else {
       window.alert("Incorrect Credentials");
     }
@@ -83,9 +84,9 @@ function Login() {
   return (
     <div className="login_container">
       <form onSubmit={handleSubmitRegister}>
-        <div className="text-center mb-4 text-white">
+        <div class="text-center mb-4 text-white">
           <label htmlFor="user_name">Username</label>
-          <div className="usernameInput">
+          <div class="usernameInput">
             <input
               type="text"
               id="user_name"
@@ -95,9 +96,9 @@ function Login() {
             ></input>
           </div>
         </div>
-        <div className="text-center mb-4 text-white">
+        <div class="text-center mb-4 text-white">
           <label htmlFor="password">Password</label>
-          <div className="passwordInput">
+          <div class="passwordInput">
             <input
               type="password"
               id="password"
@@ -107,12 +108,12 @@ function Login() {
             ></input>
           </div>
         </div>
-        <div className="text-center mt-5 mb-5">
+        <div class="text-center mt-5 mb-5">
           <button onClick={handleSubmitLogin} id="login">
             Login
           </button>
         </div>
-        <div className="text-center mb-3">
+        <div class="text-center mb-3">
           <input type="submit" value="Register" id="register"></input>
         </div>
       </form>

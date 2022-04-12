@@ -139,3 +139,27 @@ input[type="submit"]:hover {
 .gameBoard .button {
   border-style: none;
 }
+
+.EndGame button {
+  margin-top: 2vh;
+  background-color: #536878;
+  color: white;
+  transition: 0.25s;
+  border-radius: 16px;
+  padding: 20px;
+  font: 25px;
+  font-weight: bold;
+  font-size: 25px;
+  border-style: solid;
+  border-color: #00beca;
+
+  width: 30%;
+}
+
+.EndGame button:hover {
+  background-color: #00beca;
+  color: white;
+  border-radius: 26px;
+  transition: 0.25s;
+  border-color: white;
+}

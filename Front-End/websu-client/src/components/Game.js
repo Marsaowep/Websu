@@ -1,11 +1,12 @@
 import React, { Component, useState } from "react";
 import MainMenu from "./MainMenu";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import Leaderboards from "./Leaderboards";
 import Target from "./Target";
 import { socket } from "../App";
 
 export default function Game() {
+  var count = 0;
   const [targets, setTargets] = useState([
     { xid: 0, yid: 0, target: false },
     { xid: 0, yid: 1, target: false },
@@ -111,7 +112,11 @@ export default function Game() {
   const [numTarget, setNumTarget] = useState(0);
   const [startTime, setStartTime] = useState(new Date());
   const [time, setTime] = useState(Infinity);
-  const totalTarget = 30;
+  const totalTarget = 3;
+
+  const location = useLocation();
+  const navigate = useNavigate();
+  console.log(location.state);
 
   const startTimer = (event) => {
     console.log(
@@ -133,14 +138,29 @@ export default function Game() {
       }
 
       alert("Great! You have finished!" + t);
-
-      // socket.emit("matchScores", {
-      //   room: location.state.lobbyId,
-      //   username: location.state.username,
-      //   score: 3000 / t,
-      // });
+      socket.emit("matchScores", {
+        room: location.state.lobbyId,
+        username: location.state.username,
+        score: parseInt(30000 / t),
+      });
     }
   };
+
+  socket.on("updateScores", (data) => {
+    count++;
+
+    if (count == location.state.players.length) {
+      navigate("/EndGame", {
+        state: {
+          scores: data.scores,
+          lobby: location.state.lobbyId,
+          players: location.state.players,
+          host: location.state.host,
+          username: location.state.username,
+        },
+      });
+    }
+  });
 
   const setTarget = (event) => {
     const min = 0;
@@ -161,8 +181,6 @@ export default function Game() {
   // console.log(props);
   // const { globalLeaders } = props;
 
-  const location = useLocation();
-  console.log(location.state);
   return (
     <div className="game">
       <div className="container">

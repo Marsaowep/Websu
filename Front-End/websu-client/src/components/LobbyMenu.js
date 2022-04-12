@@ -10,7 +10,7 @@ export default function LobbyMenu() {
   var players = [];
   var host = "";
   var playerScores = [];
-  var username = location.state.response.name;
+  var username = location.state.username;
   var roomExists = false;
 
   let navigate = useNavigate();
