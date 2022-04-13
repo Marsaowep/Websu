@@ -3,7 +3,7 @@ Websu is a MERN stack based web app designed to enhance users hand-eye coordinat
 
 The web-app has multiplayer support, where users can battle against one another in the same lobby, measuring the total correct hits, speed and accuracy of their hits against each other. 
 
-# Setup Insructions
+# Setup Instructions
 In order to use the database functionality of the web app, you will need to add your public IP address to our Mongo Repository as a trusted IP to allow you to read and write to/from the database. You will need to contact one of the developers of this project to add your IP to our mongo repository, and to send you the .env file. 
 
 ## MongoDB Setup 
