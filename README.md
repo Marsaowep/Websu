@@ -7,7 +7,7 @@ The web-app has multiplayer support, where users can battle against one another 
 In order to use the database functionality of the web app, you will need to add your public IP address to our Mongo Repository as a trusted IP to allow you to read and write to/from the database. You will need to contact one of the developers of this project to add your IP to our mongo repository, and to send you the .env file. 
 
 ## MongoDB Setup 
-1. Contact one of the developers for setup instructions. 
+Please contact one of the developers for setup instructions. 
 
 ## NodeJS Server Setup
 
